@@ -1,4 +1,6 @@
 /*
+    Create S3 Bucket
+*/
 module "s3_bucket" {
   source = "./s3/tf-s3-bucket"
   providers = {
@@ -6,17 +8,20 @@ module "s3_bucket" {
     }
 }
 
+/*
+    Upload object to S3 Bucket
+*/
 module "s3_object_upload" {
     source = "./s3/tf-s3-object"
     providers = {
         aws = aws.aps1
     }
 
-    bucket_name = "mssm3"
+    bucket_name = module.s3_bucket.bucket_id
     local_path = "./Test"
     object_files = ["cat4.jpg","dog4.jpg"]
 }
-*/
+
 
 /* 
     Creates EC2 instance
